@@ -1,0 +1,106 @@
+.btn-primary {
+  margin: 2px;
+  background-color: lightgray;
+  font-family: 'Courier New';
+  text-transform: uppercase;
+  color: #333;
+  border-radius: 2px;
+  border: none;
+  border: 1px solid transparent;
+}
+
+.btn-primary:hover {
+  color: #333;
+  background-color: darkgrey;
+  border: 1px solid transparent;
+  box-shadow: 1px 1px #333;
+}
+
+.badge {
+  border-radius: 0;
+}
+
+#jd-swsize_type-badge {
+  line-height: 1.9em;
+}
+
+#clothes-categories:active {
+  border: none;
+  border-color: transparent;
+  background-color: gray;
+}
+#clothes-categories:focus {
+  border: none;
+  border-color: transparent;
+  background-color: gray;
+  box-shadow: 0 0 0 0.2rem rgba(63, 63, 63, 0.5);
+}
+
+#clothes-categories:hover {
+  border: none;
+  border-color: transparent;
+  background-color: gray;
+  box-shadow: 0 0 0 0.2rem rgba(63, 63, 63, 0.5);
+}
+
+#clothes-categories:visited {
+  border: none;
+  border-color: transparent;
+  background-color: gray;
+  box-shadow: 0 0 0 0.2rem rgba(63, 63, 63, 0.5);
+}
+
+.dropdown-item {
+  font-family: 'Courier New';
+}
+.dropdown-item:hover {
+  background-color: gray;
+  box-shadow: 0 0 0 0 transparent;
+}
+
+.dropdown-item:active {
+  background-color: gray;
+  box-shadow: 0 0 0 0 transparent;
+}
+
+.dropdown-item:focus {
+  background-color: gray;
+  box-shadow: 0 0 0 0 transparent;
+}
+
+.btn btn-primary:active {
+  background-color: gray;
+  box-shadow: 0 0 0 0.2rem rgba(63, 63, 63, 0.5);
+}
+
+.btn-primary.focus,
+.btn-primary:focus {
+  background-color: gray !important;
+  border: none !important;
+  box-shadow: 0 0 0 0.2rem rgba(63, 63, 63, 0.5);
+}
+
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle {
+  background-color: gray !important;
+  border: 1px solid #333;
+}
+
+.btn-primary.active.focus,
+.btn-primary.active:focus,
+.btn-primary.focus,
+.btn-primary.focus:active,
+.btn-primary:active:focus,
+.btn-primary:focus {
+  background-color: gray;
+  box-shadow: 0 0 0 0.2rem rgba(63, 63, 63, 0.5) !important;
+}
+
+.toast {
+  position: absolute;
+  top: 10px;
+  right: 210px;
+  z-index: 999;
+  font-family: 'Courier New';
+}

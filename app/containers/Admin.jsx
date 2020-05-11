@@ -1,115 +1,138 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
+import { SizeMap } from '../components/SizeMap';
 import fetchWP from '../utils/fetchWP';
+import {
+  createStore,
+  action,
+  StoreProvider,
+  useStoreActions,
+} from 'easy-peasy';
 
-export default class Admin extends Component {
-  constructor(props) {
-    super(props);
+import { SW_SIZES } from '../utils/sizes';
 
-    this.state = {
-      exampleSetting: '',
-      savedExampleSetting: ''
-    };
+import { cloneDeep, find, each } from 'lodash';
 
-    this.fetchWP = new fetchWP({
-      restURL: this.props.wpObject.api_url,
-      restNonce: this.props.wpObject.api_nonce,
-    });
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Spinner from 'react-bootstrap/Spinner';
+import '../../assets/css/board.css';
+import '../../assets/css/override.css';
 
-    this.getSetting();
-  }
+const store = createStore({
+  mappings: {
+    items: [],
+    set: action((state, payload) => {
+      state.items = payload;
+    }),
+    update: action((state, payload) => {
+      const key = payload.key;
+      const idx = payload.idx;
+      const item = payload.item;
 
-  getSetting = () => {
-    this.fetchWP.get( 'example' )
-    .then(
-      (json) => this.setState({
-        exampleSetting: json.value,
-        savedExampleSetting: json.value
-      }),
-      (err) => console.log( 'error', err )
-    );
-  };
+      const mappings = state.items;
 
-  updateSetting = () => {
-    this.fetchWP.post( 'example', { exampleSetting: this.state.exampleSetting } )
-    .then(
-      (json) => this.processOkResponse(json, 'saved'),
-      (err) => console.log('error', err)
-    );
-  }
+      const target = find(mappings, (mapping) => mapping.SWSIZE_ID === key);
+      target.VALUES.splice(idx, 1, item);
 
-  deleteSetting = () => {
-    this.fetchWP.delete( 'example' )
-    .then(
-      (json) => this.processOkResponse(json, 'deleted'),
-      (err) => console.log('error', err)
-    );
-  }
+      state.items = mappings;
+    }),
+  },
+  sizes: {
+    items: [],
+    set: action((state, payload) => {
+      state.items = payload;
+    }),
+  },
+  toast: {
+    show: false,
+    set: action((state, payload) => {
+      state.show = payload;
+    }),
+  },
+});
 
-  processOkResponse = (json, action) => {
-    if (json.success) {
-      this.setState({
-        exampleSetting: json.value,
-        savedExampleSetting: json.value,
+export const Admin = (props) => {
+  const [loading, setLoading] = useState(true);
+  const setSizes = useStoreActions((actions) => actions.sizes.set);
+  const setMappings = useStoreActions((actions) => actions.mappings.set);
+
+  const api = new fetchWP({
+    restURL: props.wpObject.api_url,
+    restNonce: props.wpObject.api_nonce,
+  });
+
+  useEffect(() => {
+    // const self = this;
+    // this.fetchWP
+    //   .get('sizes')
+    //   .then((result) => {
+    //     return self.setState({ result: result });
+    //   })
+    //   .then(() => {
+    //     this.fetchWP.get('mapping').then((data) => {
+    //       return self.setState({ mappings: data.mapping, loading: false })
+    //     });
+    //   });
+
+    const getSizes = api.get('sizes');
+    const getMappings = api.get('mapping');
+
+    Promise.all([getSizes, getMappings]).then(([{ sizes }, { mapping }]) => {
+      setSizes(sizes);
+
+      // Reconstruct mappings from database
+      // provided to us from props.mappings
+      // props.mappings is a flat array of mappings from the database [{}, {}, {}, ...]
+
+      const board = cloneDeep(SW_SIZES);
+
+      each(mapping, (data) => {
+        const target = find(
+          board,
+          (col) => col.SWSIZE_ID === data.size_category
+        );
+        target.VALUES.push({
+          SWSIZE_ID: data.size_category,
+          SWSIZE_CONST: data.size_category_size_reference,
+          SWSIZE_TYPE: data.size_fit === '' ? ' ' : data.size_fit,
+          SWSIZE_CAT: 'euro', // TODO: this needs to be saved, or inferred somehow, it doesn't even exist yet
+          ID: data.id,
+          VALUE: data.size,
+        });
       });
-    } else {
-      console.log(`Setting was not ${action}.`, json);
-    }
-  }
 
-  updateInput = (event) => {
-    this.setState({
-      exampleSetting: event.target.value,
+      setMappings(board);
+      setLoading(false);
     });
-  }
+  }, [setSizes, setMappings]);
 
-  handleSave = (event) => {
-    event.preventDefault();
-    if ( this.state.exampleSetting === this.state.savedExampleSetting ) {
-      console.log('Setting unchanged');
-    } else {
-      this.updateSetting();
-    }
-  }
-
-  handleDelete = (event) => {
-    event.preventDefault();
-    this.deleteSetting();
-  }
-
-  render() {
-    return (
-      <div className="wrap">
-        <form>
-          <h1>WP Reactivate Settings</h1>
-          
-          <label>
-          Example Setting:
-            <input
-              type="text"
-              value={this.state.exampleSetting}
-              onChange={this.updateInput}
-            />
-          </label>
-
-          <button
-            id="save"
-            className="button button-primary"
-            onClick={this.handleSave}
-          >Save</button>
-
-          <button
-            id="delete"
-            className="button button-primary"
-            onClick={this.handleDelete}
-          >Delete</button>
-        </form>
+  const loadingSpinner = (
+    <div className='jd-loading-screen'>
+      <div className='jd-loading-screen-spinner'>
+        <Spinner animation='border' role='status'>
+          <span className='sr-only'>Loading...</span>
+        </Spinner>
       </div>
-    );
-  }
-}
+    </div>
+  );
+
+  const content = <SizeMap fetchWP={api} />;
+  const output = loading ? loadingSpinner : content;
+  return <div className='wrap'>{output}</div>;
+};
+
+export const AdminContainer = (props) => {
+  return (
+    <StoreProvider store={store}>
+      <Admin {...props} />
+    </StoreProvider>
+  );
+};
+
+export default AdminContainer;
 
 Admin.propTypes = {
-  wpObject: PropTypes.object
+  wpObject: PropTypes.object,
 };
+
+AdminContainer.propTypes = Admin.propTypes;

@@ -1,24 +1,20 @@
 <?php
 /**
- * WP-Reactivate
+ * Swensk Size Map
  *
  *
- * @package   WP-Reactivate
- * @author    Pangolin
- * @license   GPL-3.0
- * @link      https://gopangolin.com
- * @copyright 2017 Pangolin (Pty) Ltd
+ * @package   Swensk Size Map
+ * @author    Marlo Vinall Richardson
+ * @link      https://janedoe.co
  *
  * @wordpress-plugin
- * Plugin Name:       WP-Reactivate
- * Plugin URI:        https://gopangolin.com
- * Description:       React boilerplate for WordPress plugins
- * Version:           1.0.2
- * Author:            pangolin
- * Author URI:        https://gopangolin.com
- * Text Domain:       wp-reactivate
- * License:           GPL-3.0
- * License URI:       https://www.gnu.org/licenses/gpl-3.0.txt
+ * Plugin Name:       Swensk Size Map
+ * Plugin URI:        https://janedoe.co
+ * Description:       Interactive size mapping
+ * Version:           1.0.0
+ * Author:            Marlo Vinall Richardson
+ * Author URI:        https://janedoe.co
+ * Text Domain:       swensk-size-map
  * Domain Path:       /languages
  */
 
@@ -79,7 +75,8 @@ function init() {
 	$wpr = Plugin::get_instance();
 	$wpr_shortcode = Shortcode::get_instance();
 	$wpr_admin = Admin::get_instance();
-	$wpr_rest = Endpoint\Example::get_instance();
+    $wpr_rest_sizes = Endpoint\Sizes::get_instance();
+    $wpr_rest_mapping = Endpoint\Mapping::get_instance();
 }
 add_action( 'plugins_loaded', 'Pangolin\\WPR\\init' );
 

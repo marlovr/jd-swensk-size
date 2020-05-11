@@ -28,6 +28,16 @@ module.exports = (env, argv) => {
           exclude: /node_modules/,
           loader: 'babel-loader',
         },
+        {
+          test: /\.css$/i,
+          use: ['style-loader', 'css-loader'],
+        },
+        {
+          test: /\.(jpe?g|png|webp)$/i,
+          loaders: [
+            'file-loader'
+          ]
+        }
       ],
     },
   };
