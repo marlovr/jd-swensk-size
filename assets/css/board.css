@@ -1,6 +1,6 @@
 .jd-size-list {
   display: grid;
-  grid-template-columns: 0.5fr 1fr;
+  grid-template-columns: 0.4fr 1fr;
   grid-row-gap: 5px;
   grid-column-gap: 5px;
 }
@@ -8,7 +8,7 @@
 .swensk-size-container {
   font-family: 'Courier New';
   display: grid;
-  grid-template-columns: 0.25fr 1fr;
+  grid-template-columns: 0.1fr 1fr;
   grid-template-rows: 1fr;
   grid-column-gap: 15px;
   grid-row-gap: 0px;

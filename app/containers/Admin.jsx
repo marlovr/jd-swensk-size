@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { SizeMap } from '../components/SizeMap';
 import fetchWP from '../utils/fetchWP';
 import {
+  debug,
   createStore,
   action,
   StoreProvider,
@@ -29,10 +30,25 @@ const store = createStore({
       const idx = payload.idx;
       const item = payload.item;
 
+      console.log({ state: debug(state), payload })
+
       const mappings = state.items;
 
       const target = find(mappings, (mapping) => mapping.SWSIZE_ID === key);
       target.VALUES.splice(idx, 1, item);
+
+      state.items = mappings;
+    }),
+    removeOne: action((state, payload) => {
+      const key = payload.key;
+      const idx = payload.idx;
+
+      const mappings = state.items;
+
+      console.log({ state: debug(state), payload })
+
+      const target = find(mappings, (mapping) => mapping.SWSIZE_ID === key);
+      target.VALUES.splice(idx, 1);
 
       state.items = mappings;
     }),
@@ -93,7 +109,7 @@ export const Admin = (props) => {
         );
         target.VALUES.push({
           SWSIZE_ID: data.size_category,
-          SWSIZE_CONST: data.size_category_size_reference,
+          SWSIZE_CONST: data.size_category_size_ref,
           SWSIZE_TYPE: data.size_fit === '' ? ' ' : data.size_fit,
           SWSIZE_CAT: 'euro', // TODO: this needs to be saved, or inferred somehow, it doesn't even exist yet
           ID: data.id,

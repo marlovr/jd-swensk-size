@@ -100,10 +100,17 @@ class Mapping {
 
       $delete = $wpdb->query("TRUNCATE TABLE $table_name");
       foreach($request->get_params() as $row) {
-        $wpdb->insert($table_name , $row);
+        $result = $wpdb->insert($table_name , $row);
+
+        if (!$result) {
+            return new \WP_REST_Response( array(
+                'error' => $wpdb->last_error
+            ), 500);
+        }
       }
+
       return new \WP_REST_Response( array(
-        'success' => true,
+        'success' => true
     ), 200 );
     }
 

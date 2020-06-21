@@ -65,7 +65,7 @@ export const SizeMap = (props) => {
 
   const gridStyle = showLeftArea
     ? {
-        gridTemplateColumns: '0.4fr 1fr',
+        gridTemplateColumns: '0.2fr 1fr',
       }
     : {
         gridTemplateColumns: '0fr 1fr',
