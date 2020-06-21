@@ -77,7 +77,7 @@ class Sizes {
      *
      * @param WP_REST_Request $request Full data about the request.
      * @return WP_Error|WP_REST_Request
-     */
+    i */
     public function get_sizes( $request ) {
       global $wpdb;
 
@@ -90,7 +90,14 @@ class Sizes {
       $args['posts_per_page'] = -1;
   
 
-      $args['tax_query'][] = getNewTaxQuery(array('1003'));
+      // For these categories
+      $taxonomies = $request->get_param('taxonomies');
+      $taxonomies = explode(',', $taxonomies);
+
+      $debug = array();
+      $debug[] = $taxonomies;
+
+      $args['tax_query'][] = getNewTaxQuery($taxonomies);
   
   
       $query = new \WP_Query($args);
@@ -99,7 +106,8 @@ class Sizes {
       // return $query;
       return new \WP_REST_Response( array(
         'success' => true,
-        'sizes' => $result
+        'sizes' => $result,
+        'debug' => $debug
     ), 200 );
     }
 

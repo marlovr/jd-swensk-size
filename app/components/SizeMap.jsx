@@ -9,18 +9,11 @@ import { getSortedSizes } from '../utils/sizes';
 import Button from 'react-bootstrap/Button';
 import { cloneDeep } from 'lodash';
 
+import { CLOTHES_CATEGORIES } from '../consts/clothes';
+
 import { useStoreState, useStoreActions } from 'easy-peasy';
 
 import { Scrollbars } from 'react-custom-scrollbars';
-
-export const CLOTHES_CATEGORIES = [
-  {
-    name: 'Bottoms',
-  },
-  {
-    name: 'Tops',
-  },
-];
 
 export const SizeMap = (props) => {
   const mappings = useStoreState((state) => state.mappings.items);

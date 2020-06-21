@@ -124,7 +124,8 @@ class Mapping {
         global $wpdb;
         $table_name = $this->table_name;
         // GET THE STUFF BACK OUT
-        $result = $wpdb->get_results("SELECT * FROM $table_name");
+        $category = $request->get_param('category');
+        $result = $wpdb->get_results("SELECT * FROM $table_name WHERE size_category LIKE '$category%'");
         return new \WP_REST_Response( array(
             'success' => true,
             'mapping' => $result

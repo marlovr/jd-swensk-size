@@ -52,14 +52,24 @@ export const resetData = ({ mappings, setMappings }) => {
 };
 
 export const ClothesCats = (props) => {
+  const currentCategory = useStoreState((state) => state.location.category)
+  const updateCategory = useStoreActions((actions) => actions.location.set)
+  const setLoading = useStoreActions((actions) => actions.app.setLoading)
+
+  const onClick = (e, cat) => {
+    e.preventDefault()
+    setLoading(true)
+    updateCategory(cat)
+  }
+  
   const cats = props.clothesCategories.map((cat, idx) => (
-    <Dropdown.Item key={idx} href='#/action-1'>
+    <Dropdown.Item key={idx} href='#/action-1' onClick={(e) => onClick(e, cat)}>
       {cat.name}
     </Dropdown.Item>
   ));
 
   return (
-    <DropdownButton id='clothes-categories' title='Clothes Categories'>
+    <DropdownButton id='clothes-categories' title={currentCategory.name}>
       {cats}
     </DropdownButton>
   );
