@@ -3,7 +3,7 @@ import { compact, sortBy, uniq, filter } from 'lodash';
 export const SIZE_TYPES = {
   SMALLER: '--',
   SMALL: '-',
-  STANDARD: ' ',
+  STANDARD: 'true',
   LARGE: '+',
   LARGER: '++',
 };
@@ -90,22 +90,6 @@ export const getSortedSizes = (unsortedSizes) => {
 
   const sizeObjects = sizes.reduce((acc, size) => {
     return acc.concat([
-      // {
-      //   SWSIZE_ID: null, // SW_HIKE_TO_WOO_ID  : MB01
-      //   SWSIZE_CONST: null, // SW_AUSTRALIAN_SIZE : 27inch
-      //   SWSIZE_TYPE: SIZE_TYPES.SMALLER, // SW_RELATIVE_FIT    : +/-
-      //   SWSIZE_CAT: 'euro', // SIZE_CATEGORY      : euro, jpn, etc
-      //   ID: 0, // GROUP_SORT_ID      : 0 - N
-      //   VALUE: size, // ACTUAL_VALUE       : 44
-      // },
-      // {
-      //   SWSIZE_ID: null,
-      //   SWSIZE_CONST: null,
-      //   SWSIZE_TYPE: SIZE_TYPES.SMALL,
-      //   SWSIZE_CAT: 'euro',
-      //   ID: 1,
-      //   VALUE: size,
-      // },
       {
         SWSIZE_ID: null,
         SWSIZE_CONST: null,
@@ -114,22 +98,6 @@ export const getSortedSizes = (unsortedSizes) => {
         ID: 2,
         VALUE: size,
       },
-      // {
-      //   SWSIZE_ID: null,
-      //   SWSIZE_CONST: null,
-      //   SWSIZE_TYPE: SIZE_TYPES.LARGE,
-      //   SWSIZE_CAT: 'euro',
-      //   ID: 3,
-      //   VALUE: size,
-      // },
-      // {
-      //   SWSIZE_ID: null,
-      //   SWSIZE_CONST: null,
-      //   SWSIZE_TYPE: SIZE_TYPES.LARGER,
-      //   SWSIZE_CAT: 'euro',
-      //   ID: 4,
-      //   VALUE: size,
-      // },
     ]);
   }, []);
 

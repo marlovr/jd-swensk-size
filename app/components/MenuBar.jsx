@@ -20,6 +20,7 @@ export const saveData = ({ fetchWP, mappings, setShow }) => {
           size_fit: size.SWSIZE_TYPE,
           size_category: data.SWSIZE_ID,
           size_category_size_ref: data.SWSIZE_CONST,
+          size_umbrella: data.SWSIZE_UMBRELLA
         };
       });
 

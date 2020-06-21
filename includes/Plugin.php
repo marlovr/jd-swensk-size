@@ -87,9 +87,10 @@ class Plugin
         $sql = "CREATE TABLE $table_name (
 					id INT AUTO_INCREMENT PRIMARY KEY,
 					size VARCHAR(3) NOT NULL,
-					size_fit ENUM('--', '-', ' ', '+', '++') NOT NULL,
+					size_fit ENUM('--', '-', 'true', '+', '++') NOT NULL,
 					size_category VARCHAR(4) NOT NULL,
 					size_category_size_ref VARCHAR(4) NOT NULL,
+          size_umbrella VARCHAR(16) NOT NULL,
 					UNIQUE KEY id (id)
 				);";
 

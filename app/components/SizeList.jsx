@@ -17,12 +17,10 @@ export const SizeItem = (props) => {
             {...provided.dragHandleProps}
           >
             {props.size.VALUE}
-            <Badge>{props.size.SWSIZE_TYPE}</Badge>
           </div>
           {snapshot.isDragging && (
             <div className='jd-size-item'>
               {props.size.VALUE}
-              <Badge>{props.size.SWSIZE_TYPE}</Badge>
             </div>
           )}
         </React.Fragment>

@@ -2,6 +2,7 @@ export const CLOTHES_CATEGORIES = [
   {
     name: 'Mens Tops',
     key: 'MT',
+    umbrella: 'Top',
     columns: ['XL'],
     taxonomies: [
       '1099', // Jackets
@@ -11,6 +12,7 @@ export const CLOTHES_CATEGORIES = [
   {
     name: 'Mens Bottoms',
     key: 'MB',
+    umbrella: 'Bottom',
     columns: [
       '27',
       '28',
@@ -34,6 +36,7 @@ export const CLOTHES_CATEGORIES = [
   {
     name: 'Mens Shoes',
     key: 'MS',
+    umbrella: 'Shoe',
     columns: ['XL'],
     taxonomies: [
       '568', // Shoes
@@ -43,6 +46,7 @@ export const CLOTHES_CATEGORIES = [
     name: 'Womens Tops',
     key: 'WT',
     columns: ['XL'],
+    umbrella: 'Top',
     taxonomies: [
       '979', // Tops
       '984', // Jackets and Coats
@@ -52,6 +56,7 @@ export const CLOTHES_CATEGORIES = [
     name: 'Womens Bottoms',
     key: 'WB',
     columns: ['XL'],
+    umbrella: 'Bottom',
     taxonomies: [
       '982', // Pants and Jeans
       '983', // Dresses and Skirts
@@ -61,6 +66,7 @@ export const CLOTHES_CATEGORIES = [
     name: 'Womens Shoes',
     key: 'WS',
     columns: ['XL'],
+    umbrella: 'Shoe',
     taxonomies: [
       '881', // Shoes
     ],

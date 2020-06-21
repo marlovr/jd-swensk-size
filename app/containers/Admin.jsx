@@ -94,6 +94,7 @@ export const generateBoard = (targetCategory) => {
     return {
       SWSIZE_ID: `${category.key}${idx + 1}`,
       SWSIZE_CONST: col,
+      SWSIZE_UMBRELLA: category.umbrella,
       VALUES: [],
     };
   });
@@ -147,10 +148,11 @@ export const Admin = (props) => {
           target.VALUES.push({
             SWSIZE_ID: data.size_category,
             SWSIZE_CONST: data.size_category_size_ref,
-            SWSIZE_TYPE: data.size_fit === '' ? ' ' : data.size_fit,
+            SWSIZE_TYPE: data.size_fit,
             SWSIZE_CAT: 'euro', // TODO: this needs to be saved, or inferred somehow, it doesn't even exist yet
             ID: data.id,
             VALUE: data.size,
+            SWSIZE_UMBRELLA: data.size_umbrella
           });
         });
   

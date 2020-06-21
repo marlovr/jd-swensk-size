@@ -35,7 +35,7 @@ export const SizeItem = ({ value, itemIdx, SWSIZE_ID }) => {
     // If we are de-selecting
     if (currentlySelected && currentlySelected.id === SWSIZE_TYPE) {
       const newValue = value;
-      newValue.SWSIZE_TYPE = ' ';
+      newValue.SWSIZE_TYPE = 'true';
       updateItem({
         key: SWSIZE_ID,
         idx: itemIdx,
@@ -143,7 +143,10 @@ export const SizeColumn = (props) => {
 
   return (
     <div>
-      <div className='jd-swsize-id-title'>{props.sw_size.SWSIZE_ID}</div>
+      <div className='jd-swsize-id-title'>
+        <h3>{props.sw_size.SWSIZE_ID}</h3>
+        <h4>{props.sw_size.SWSIZE_CONST}</h4>
+      </div>
       <div>{sizeItems}</div>
     </div>
   );
